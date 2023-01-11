@@ -1,7 +1,7 @@
 import React from "react";
 
-const Switch = () => {
+const Header = () => {
   return <div></div>;
 };
 
-export default Switch;
+export default Header;
