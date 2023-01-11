@@ -1,5 +1,24 @@
 .wrapper {
-  margin: 10px;
+  margin: 20px;
   display: flex;
   flex-direction: column;
+  width: 256px;
+}
+.img {
+  width: 256px;
+  height: 144px;
+  border-radius: 10px;
+}
+.param_wrapper {
+  display: flex;
+  justify-content: space-between;
+  color: #606060;
+  font-size: 14px;
+}
+.title {
+  font-size: 16px;
+  font-family: "Times New Roman", sans-serif;
+}
+.channel_title {
+  font-weight: bolder;
 }

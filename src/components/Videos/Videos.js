@@ -1,16 +1,34 @@
 import React from "react";
 import Video from "./Video/Video";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import s from "./Videos.module.css";
+import { setVideosPerPageAction } from "../../store/videosReducer";
+import { useEffect } from "react";
 
 const Videos = () => {
-  // const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const videos = useSelector((state) => state.videos).slice(
     currentId,
     videosPerPage
   );
+  const dispatch = useDispatch();
+  function handleResize() {
+    const width = window.visualViewport.width;
+    if (width < 767) {
+      dispatch(setVideosPerPageAction(1));
+    } else if (width < 992) {
+      dispatch(setVideosPerPageAction(2));
+    } else {
+      dispatch(setVideosPerPageAction(3));
+    }
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className={s.wrapper}>
       {videos.map((video) => (
