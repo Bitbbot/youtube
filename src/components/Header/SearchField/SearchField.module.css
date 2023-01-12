@@ -30,3 +30,8 @@
     margin-top: 15px;
   }
 }
+@media screen and (max-width: 576px) {
+  .input {
+    width: 250px;
+  }
+}

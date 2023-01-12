@@ -10,8 +10,9 @@ const Videos = () => {
   const currentId = useSelector((state) => state.currentId);
   const videos = useSelector((state) => state.videos).slice(
     currentId,
-    videosPerPage
+    currentId + videosPerPage
   );
+  console.log(currentId, videosPerPage, videos);
   const dispatch = useDispatch();
   function handleResize() {
     const width = window.visualViewport.width;
@@ -24,6 +25,7 @@ const Videos = () => {
     }
   }
   useEffect(() => {
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
