@@ -46,7 +46,6 @@ const defaultState = {
     .concat(videos)
     .concat(videos)
     .concat(videos)
-    .concat(videos)
     .concat(videos),
   currentId: 0,
   videosPerPage: 3,
