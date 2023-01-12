@@ -12,7 +12,6 @@ const Videos = () => {
     currentId,
     currentId + videosPerPage
   );
-  console.log(currentId, videosPerPage, videos);
   const dispatch = useDispatch();
   function handleResize() {
     const width = window.visualViewport.width;
