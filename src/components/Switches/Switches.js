@@ -16,7 +16,6 @@ const Switches = () => {
       currentId,
     });
     setSwitches(swarray);
-    // Define number of switches
   }, [videosPerPage, currentId, videos]);
   return (
     <div className={s.wrapper}>

@@ -5,7 +5,6 @@ import { setCurrentIdAction } from "../../../store/videosReducer";
 
 const Switch = ({ isOn, switchesOn }) => {
   const dispatch = useDispatch();
-  console.log(isOn);
   return isOn ? (
     <button
       className={`${s.switch} ${s.on}`}
