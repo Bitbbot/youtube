@@ -3,12 +3,21 @@ import searchIcon from "../../../assets/imgs/search-icon.png";
 import s from "./SearchField.module.css";
 import { useDispatch } from "react-redux";
 import { fetchVideos } from "../../../assets/AsyncActions/fetchVideos";
-import { setCurrentIdAction } from "../../../store/videosReducer";
+import {
+  setCurrentIdAction,
+  setLoading,
+  setVideosAction,
+} from "../../../store/videosReducer";
 
 const SearchField = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
-
+  const search = () => {
+    dispatch(setLoading());
+    dispatch(setVideosAction([]));
+    dispatch(fetchVideos(input));
+    dispatch(setCurrentIdAction(0));
+  };
   return (
     <div className={s.wrapper}>
       <input
@@ -16,19 +25,10 @@ const SearchField = () => {
         className={s.input}
         onChange={(e) => setInput(e.target.value)}
         onKeyPress={(e) => {
-          if (e?.key === "Enter") {
-            dispatch(fetchVideos(input));
-            dispatch(setCurrentIdAction(0));
-          }
+          if (e?.key === "Enter") search();
         }}
       />
-      <button
-        className={s.search_button}
-        onClick={() => {
-          dispatch(fetchVideos(input));
-          dispatch(setCurrentIdAction(0));
-        }}
-      >
+      <button className={s.search_button} onClick={search}>
         <img src={searchIcon} alt={"NaN"} className={s.search_icon} />
       </button>
     </div>

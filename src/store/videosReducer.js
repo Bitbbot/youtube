@@ -1,59 +1,15 @@
-const videos = [
-  {
-    id: 1,
-    img: "https://i.ytimg.com/vi/ylakWC0VcEM/mqdefault.jpg",
-    channelTitle: "Хаудихо",
-    title: "Как выучить JavaScript? Самый аху#### способ!",
-    views: 4526,
-    likes: 125,
-    date: "12-05-2018",
-    comments: 10,
-  },
-  {
-    id: 2,
-    img: "https://i.ytimg.com/vi/Q3UcdJJn36M/mqdefault.jpg",
-    channelTitle: "Хаудихо",
-    title: "Как выучить JavaScript? Самый аху#### способ!",
-    views: 4526,
-    likes: 125,
-    date: "12-05-2018",
-    comments: 10,
-  },
-  {
-    id: 3,
-    img: "https://i.ytimg.com/vi/AX0aCTRVOos/mqdefault.jpg",
-    channelTitle: "Хаудихо",
-    title: "Как выучить JavaScript? Самый аху#### способ!",
-    views: 4526,
-    likes: 125,
-    date: "12-05-2018",
-    comments: 10,
-  },
-  {
-    id: 4,
-    img: "https://i.ytimg.com/vi/3F66FMtJkrg/mqdefault.jpg",
-    channelTitle: "Хаудихо",
-    title: "Как выучить JavaScript? Самый аху#### способ!",
-    views: 4526,
-    likes: 125,
-    date: "12-05-2018",
-    comments: 10,
-  },
-];
 const defaultState = {
-  videos: videos
-    .concat(videos)
-    .concat(videos)
-    .concat(videos)
-    .concat(videos)
-    .concat(videos),
+  videos: [],
   currentId: 0,
   videosPerPage: 3,
+  isLoading: false,
 };
 
 const SET_VIDEOS = "SET_VIDEOS";
 const SET_CURRENT_ID = "SET_CURRENT_ID";
 const SET_VIDEOS_PER_PAGE = "SET_VIDEOS_PER_PAGE";
+const LOADING = "LOADING";
+const STOP_LOADING = "STOP_LOADING";
 export const videosReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_VIDEOS:
@@ -62,7 +18,10 @@ export const videosReducer = (state = defaultState, action) => {
       return { ...state, currentId: action.payload };
     case SET_VIDEOS_PER_PAGE:
       return { ...state, videosPerPage: action.payload };
-
+    case LOADING:
+      return { ...state, isLoading: true };
+    case STOP_LOADING:
+      return { ...state, isLoading: false };
     default:
       return state;
   }
@@ -77,3 +36,5 @@ export const setVideosPerPageAction = (payload) => ({
   type: SET_VIDEOS_PER_PAGE,
   payload,
 });
+export const setLoading = () => ({ type: LOADING });
+export const setStopLoading = () => ({ type: STOP_LOADING });

@@ -1,4 +1,4 @@
-import { setVideosAction } from "../../store/videosReducer";
+import { setStopLoading, setVideosAction } from "../../store/videosReducer";
 
 const fetchVideosInfo = async (ids) => {
   const response = await fetch(
@@ -40,5 +40,6 @@ export const fetchVideos = (text) => {
       Object.assign(videos[index], item);
     });
     dispatch(setVideosAction(videos));
+    dispatch(setStopLoading());
   };
 };

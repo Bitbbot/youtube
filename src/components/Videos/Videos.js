@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import s from "./Videos.module.css";
 import { setVideosPerPageAction } from "../../store/videosReducer";
 import { useEffect } from "react";
+import indicator from "../../assets/imgs/indicator.gif";
 
 const Videos = () => {
   const videosPerPage = useSelector((state) => state.videosPerPage);
@@ -12,6 +13,7 @@ const Videos = () => {
     currentId,
     currentId + videosPerPage
   );
+  const isLoading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
   function handleResize() {
     const width = window.visualViewport.width;
@@ -32,9 +34,11 @@ const Videos = () => {
   }, []);
   return (
     <div className={s.wrapper}>
-      {videos.map((video) => (
-        <Video video={video} key={video.id} />
-      ))}
+      {isLoading ? (
+        <img src={indicator} alt="NaN" className={s.indicator} />
+      ) : (
+        videos.map((video) => <Video video={video} key={video.id} />)
+      )}
     </div>
   );
 };
