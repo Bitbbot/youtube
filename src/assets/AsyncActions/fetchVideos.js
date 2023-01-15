@@ -4,7 +4,7 @@ const fetchVideosInfo = async (ids) => {
   const response = await fetch(
     `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${ids.join(
       ","
-    )}&key=AIzaSyB7DTJ8hFunpyhIAyputSwJZTiLwJ2Qyq4`
+    )}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
   );
   const json = await response.json();
   return json.items.map((item) => {
@@ -20,7 +20,7 @@ const fetchVideosInfo = async (ids) => {
 export const fetchVideos = (text) => {
   return async function (dispatch) {
     const response = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=25&q=${text}&key=AIzaSyB7DTJ8hFunpyhIAyputSwJZTiLwJ2Qyq4`
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=25&q=${text}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
     );
     const json = await response.json();
     const videos = json.items.map((item) => {
