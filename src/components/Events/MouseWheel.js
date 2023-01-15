@@ -7,14 +7,14 @@ const MouseWheel = () => {
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const videos = useSelector((state) => state.videos);
-  function onWheel(e) {
-    const delta = e.deltaY || e.detail || e.wheelDelta;
-    if (delta < 0 && currentId + videosPerPage < videos.length) {
-      dispatch(setCurrentIdAction(currentId + videosPerPage));
-    } else if (delta > 0 && currentId - videosPerPage >= 0)
-      dispatch(setCurrentIdAction(currentId - videosPerPage));
-  }
   useEffect(() => {
+    function onWheel(e) {
+      const delta = e.deltaY || e.detail || e.wheelDelta;
+      if (delta < 0 && currentId + videosPerPage < videos.length) {
+        dispatch(setCurrentIdAction(currentId + videosPerPage));
+      } else if (delta > 0 && currentId - videosPerPage >= 0)
+        dispatch(setCurrentIdAction(currentId - videosPerPage));
+    }
     if ("onwheel" in document) {
       window.addEventListener("wheel", onWheel);
     } else if ("onmousewheel" in document) {
@@ -31,7 +31,7 @@ const MouseWheel = () => {
         window.removeEventListener("MozMousePixelScroll", onWheel);
       }
     };
-  }, [videosPerPage, videos, currentId]);
+  }, [videosPerPage, videos, currentId, dispatch]);
   return <div></div>;
 };
 

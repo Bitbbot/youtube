@@ -35,7 +35,7 @@ export const fetchVideos = (text) => {
     const additionalData = await fetchVideosInfo(
       videos.map((video) => video.id)
     );
-    additionalData.map((item) => {
+    additionalData.forEach((item) => {
       const index = videos.findIndex((el) => el.id === item.id);
       Object.assign(videos[index], item);
     });
