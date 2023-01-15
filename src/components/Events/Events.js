@@ -1,28 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { setVideosPerPageAction } from "../../store/videosReducer";
-import { useEffect } from "react";
+import Resize from "./Resize";
+import MouseWheel from "./MouseWheel";
 
 const Events = () => {
-  const dispatch = useDispatch();
-  function handleResize() {
-    const width = window.visualViewport.width;
-    if (width < 767) {
-      dispatch(setVideosPerPageAction(1));
-    } else if (width < 992) {
-      dispatch(setVideosPerPageAction(2));
-    } else {
-      dispatch(setVideosPerPageAction(3));
-    }
-  }
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  return <div></div>;
+  return (
+    <div>
+      <Resize />
+      <MouseWheel />
+    </div>
+  );
 };
 
 export default Events;
