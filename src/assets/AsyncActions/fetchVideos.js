@@ -1,4 +1,7 @@
-import { setStopLoading, setVideosAction } from "../../store/videosReducer";
+import {
+  setStopLoadingAction,
+  setVideosAction,
+} from "../../store/videosReducer";
 
 const fetchVideosInfo = async (ids) => {
   const response = await fetch(
@@ -20,7 +23,7 @@ const fetchVideosInfo = async (ids) => {
 export const fetchVideos = (text) => {
   return async function (dispatch) {
     const response = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=25&q=${text}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=100&q=${text}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
     );
     const json = await response.json();
     const videos = json.items.map((item) => {
@@ -32,6 +35,7 @@ export const fetchVideos = (text) => {
         date: item.snippet.publishTime.slice(0, 10),
       };
     });
+    console.log(videos.length);
     const additionalData = await fetchVideosInfo(
       videos.map((video) => video.id)
     );
@@ -40,6 +44,6 @@ export const fetchVideos = (text) => {
       Object.assign(videos[index], item);
     });
     dispatch(setVideosAction(videos));
-    dispatch(setStopLoading());
+    dispatch(setStopLoadingAction());
   };
 };
