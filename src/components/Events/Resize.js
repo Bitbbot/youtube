@@ -8,7 +8,7 @@ const Resize = () => {
   useEffect(() => {
     function handleResize() {
       const width = window.visualViewport.width;
-      if (width < 767) {
+      if (width < 576) {
         dispatch(setVideosPerPageAction(1));
       } else if (width < 992) {
         dispatch(setVideosPerPageAction(2));

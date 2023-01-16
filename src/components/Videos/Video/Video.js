@@ -4,7 +4,9 @@ import s from "./Video.module.css";
 const Video = ({ video }) => {
   return (
     <div className={s.wrapper}>
-      <img src={video.img} alt={"NaN"} className={s.img} />
+      <div className={s.img_wrapper}>
+        <img src={video.img} alt={"NaN"} className={s.img} />
+      </div>
       <span className={s.title}>{video.title}</span>
       <span className={s.channel_title}>{video.channelTitle}</span>
       <div className={s.param_wrapper}>
