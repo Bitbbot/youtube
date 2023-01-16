@@ -24,29 +24,9 @@
 .title {
   font-size: 16px;
   font-family: "Times New Roman", sans-serif;
-  /*hide lines*/
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -moz-box;
-  -moz-box-orient: vertical;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  box-orient: vertical;
 }
 .channel_title {
   font-weight: bolder;
-  /*hide lines*/
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -moz-box;
-  -moz-box-orient: vertical;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  box-orient: vertical;
 }
 @media screen and (max-width: 991px) {
   .wrapper {
