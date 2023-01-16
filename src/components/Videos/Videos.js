@@ -36,9 +36,7 @@ const Videos = () => {
       {isLoading ? (
         <img src={indicator} alt="NaN" className={s.indicator} />
       ) : (
-        videos
-          // .slice(currentId, videos.length)
-          .map((video) => <Video video={video} key={video.id} />)
+        videos.map((video) => <Video video={video} key={video.id} />)
       )}
     </div>
   );
