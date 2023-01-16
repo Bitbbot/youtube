@@ -36,5 +36,5 @@ export const setVideosPerPageAction = (payload) => ({
   type: SET_VIDEOS_PER_PAGE,
   payload,
 });
-export const setLoading = () => ({ type: LOADING });
-export const setStopLoading = () => ({ type: STOP_LOADING });
+export const setLoadingAction = () => ({ type: LOADING });
+export const setStopLoadingAction = () => ({ type: STOP_LOADING });

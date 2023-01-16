@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchVideos } from "../../../assets/AsyncActions/fetchVideos";
 import {
   setCurrentIdAction,
-  setLoading,
+  setLoadingAction,
   setVideosAction,
 } from "../../../store/videosReducer";
 
@@ -13,7 +13,7 @@ const SearchField = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const search = () => {
-    dispatch(setLoading());
+    dispatch(setLoadingAction());
     dispatch(setVideosAction([]));
     dispatch(fetchVideos(input));
     dispatch(setCurrentIdAction(0));

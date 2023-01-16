@@ -10,6 +10,7 @@ const MouseWheel = () => {
   useEffect(() => {
     function onWheel(e) {
       const delta = e.deltaY || e.detail || e.wheelDelta;
+      console.log(delta);
       if (delta < 0 && currentId + videosPerPage < videos.length) {
         dispatch(setCurrentIdAction(currentId + videosPerPage));
       } else if (delta > 0 && currentId - videosPerPage >= 0)
