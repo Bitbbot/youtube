@@ -26,6 +26,7 @@ const Videos = () => {
   //   },
   // });
   useEffect(() => {
+    console.log((-currentId / videosPerPage) * videosRef.current.offsetWidth);
     videosRef.current.style = `transform: translateX(${
       (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
     }`;
