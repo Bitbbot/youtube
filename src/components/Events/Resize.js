@@ -9,7 +9,6 @@ const Resize = () => {
   const videosPerPageRef = useRef(videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const currentIdRef = useRef(currentId);
-  const timer = useRef(null);
   useEffect(() => {
     videosPerPageRef.current = videosPerPage;
     currentIdRef.current = currentId;
@@ -26,17 +25,12 @@ const Resize = () => {
       }
     }
     function moveComponent() {
-      if (timer !== null) {
-        clearTimeout(timer.current);
-      }
-      timer.current = setTimeout(function () {
-        const videosElement = document.getElementById("videos");
-        videosElement.style.transform = `translateX(${
-          (-currentIdRef.current / videosPerPageRef.current) *
-            videosElement.offsetWidth +
-          "px"
-        }`;
-      }, 300);
+      const videosElement = document.getElementById("videos");
+      videosElement.style.transform = `translateX(${
+        (-currentIdRef.current / videosPerPageRef.current) *
+          videosElement.offsetWidth +
+        "px"
+      }`;
     }
     handleResize();
     window.addEventListener("resize", () => {
