@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: row;
   height: 50vh;
-  transition: 1s;
   z-index: -1;
+  transition: 1s;
 }
 /*::-webkit-scrollbar {*/
 /*  width: 0;*/

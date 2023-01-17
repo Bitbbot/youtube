@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentIdAction } from "../../store/videosReducer";
+import { setCurrentIdAction } from "../store/videosReducer";
 
-const MouseWheel = () => {
+const UseWheel = (videosRef) => {
   const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
@@ -33,7 +33,6 @@ const MouseWheel = () => {
       }
     };
   }, [videosPerPage, videos, currentId, dispatch]);
-  return <div></div>;
 };
 
-export default MouseWheel;
+export default UseWheel;
