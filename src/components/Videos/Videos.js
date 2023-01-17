@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import Video from "./Video/Video";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import s from "./Videos.module.css";
-import useSwipe from "../../hooks/useSwipe";
+// import useSwipe from "../../hooks/useSwipe";
 import indicator from "../../assets/imgs/indicator.gif";
-import { setCurrentIdAction } from "../../store/videosReducer";
+// import { setCurrentIdAction } from "../../store/videosReducer";
 
 const Videos = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
-  const previousId = useSelector((state) => state.previousId);
+  // const previousId = useSelector((state) => state.previousId);
   const videos = useSelector((state) => state.videos);
   const videosRef = useRef(null);
   // const swipeHandlers = useSwipe({
@@ -30,7 +30,7 @@ const Videos = () => {
     videosRef.current.style = `transform: translateX(${
       (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
     }`;
-  }, [currentId]);
+  }, [currentId, videosPerPage]);
   const isLoading = useSelector((state) => state.isLoading);
   return (
     <div className={s.wrapper} id="videos" ref={videosRef}>

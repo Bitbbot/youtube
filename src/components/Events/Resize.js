@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setVideosPerPageAction } from "../../store/videosReducer";
 import { useEffect } from "react";
@@ -9,7 +9,7 @@ const Resize = () => {
   const videosPerPageRef = useRef(videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const currentIdRef = useRef(currentId);
-  let timer = null;
+  const timer = useRef(null);
   useEffect(() => {
     videosPerPageRef.current = videosPerPage;
     currentIdRef.current = currentId;
@@ -27,9 +27,9 @@ const Resize = () => {
     }
     function moveComponent() {
       if (timer !== null) {
-        clearTimeout(timer);
+        clearTimeout(timer.current);
       }
-      timer = setTimeout(function () {
+      timer.current = setTimeout(function () {
         const videosElement = document.getElementById("videos");
         videosElement.style.transform = `translateX(${
           (-currentIdRef.current / videosPerPageRef.current) *
@@ -49,7 +49,7 @@ const Resize = () => {
         moveComponent();
       });
     };
-  }, []);
+  }, [dispatch]);
   return <></>;
 };
 
