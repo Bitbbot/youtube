@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import searchIcon from "../../../assets/imgs/search-icon.png";
 import s from "./SearchField.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchVideos } from "../../../assets/AsyncActions/fetchVideos";
 import {
   setCurrentIdAction,
@@ -11,11 +11,12 @@ import {
 
 const SearchField = () => {
   const dispatch = useDispatch();
+  const nextPageToken = useSelector((state) => state.nextPageToken);
   const [input, setInput] = useState("");
   const search = () => {
     dispatch(setLoadingAction());
     dispatch(setVideosAction([]));
-    dispatch(fetchVideos(input));
+    dispatch(fetchVideos(input, nextPageToken));
     dispatch(setCurrentIdAction(0));
   };
   return (

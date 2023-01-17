@@ -1,4 +1,5 @@
 import {
+  setNextPageTokenAction,
   setStopLoadingAction,
   setVideosAction,
 } from "../../store/videosReducer";
@@ -20,12 +21,13 @@ const fetchVideosInfo = async (ids) => {
   });
 };
 
-export const fetchVideos = (text) => {
+export const fetchVideos = (text, nextPageToken) => {
   return async function (dispatch) {
     const response = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=100&q=${text}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=100&pageToken=${nextPageToken}&q=${text}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
     );
     const json = await response.json();
+    console.log(json);
     const videos = json.items.map((item) => {
       return {
         id: item.id.videoId,
@@ -45,5 +47,6 @@ export const fetchVideos = (text) => {
     });
     dispatch(setVideosAction(videos));
     dispatch(setStopLoadingAction());
+    dispatch(setNextPageTokenAction(json.nextPageToken));
   };
 };
