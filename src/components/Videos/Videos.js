@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Video from "./Video/Video";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./Videos.module.css";
-import useSwipe from "../../assets/functions/useSwipe";
+import useSwipe from "../../hooks/useSwipe";
 import indicator from "../../assets/imgs/indicator.gif";
 import { setCurrentIdAction } from "../../store/videosReducer";
 

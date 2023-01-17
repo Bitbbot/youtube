@@ -5,9 +5,9 @@
   transition: 1s;
   z-index: -1;
 }
-::-webkit-scrollbar {
-  width: 0;
-}
+/*::-webkit-scrollbar {*/
+/*  width: 0;*/
+/*}*/
 .indicator {
   width: 70px;
   height: 40px;

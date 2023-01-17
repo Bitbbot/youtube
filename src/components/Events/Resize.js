@@ -50,7 +50,7 @@ const Resize = () => {
       });
     };
   }, []);
-  return <div></div>;
+  return <></>;
 };
 
 export default Resize;
