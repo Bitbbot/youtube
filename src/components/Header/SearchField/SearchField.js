@@ -4,9 +4,9 @@ import s from "./SearchField.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVideos } from "../../../redux-thunk/fetchVideos";
 import {
+  resetVideosAction,
   setCurrentIdAction,
-  setLoadingAction,
-  setVideosAction,
+  setInputAction,
 } from "../../../store/videosReducer";
 
 const SearchField = () => {
@@ -14,8 +14,8 @@ const SearchField = () => {
   const nextPageToken = useSelector((state) => state.nextPageToken);
   const [input, setInput] = useState("");
   const search = () => {
-    dispatch(setLoadingAction());
-    dispatch(setVideosAction([]));
+    dispatch(resetVideosAction());
+    dispatch(setInputAction(input));
     dispatch(fetchVideos(input, nextPageToken));
     dispatch(setCurrentIdAction(0));
   };

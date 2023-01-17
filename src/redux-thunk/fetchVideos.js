@@ -1,7 +1,8 @@
 import {
   setNextPageTokenAction,
   setStopLoadingAction,
-  setVideosAction,
+  addVideosAction,
+  setLoadingAction,
 } from "../store/videosReducer";
 
 const fetchVideosInfo = async (ids) => {
@@ -23,11 +24,11 @@ const fetchVideosInfo = async (ids) => {
 
 export const fetchVideos = (text, nextPageToken) => {
   return async function (dispatch) {
+    dispatch(setLoadingAction());
     const response = await fetch(
       `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=100&pageToken=${nextPageToken}&q=${text}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
     );
     const json = await response.json();
-    console.log(json);
     const videos = json.items.map((item) => {
       return {
         id: item.id.videoId,
@@ -37,7 +38,6 @@ export const fetchVideos = (text, nextPageToken) => {
         date: item.snippet.publishTime.slice(0, 10),
       };
     });
-    console.log(videos.length);
     const additionalData = await fetchVideosInfo(
       videos.map((video) => video.id)
     );
@@ -45,8 +45,8 @@ export const fetchVideos = (text, nextPageToken) => {
       const index = videos.findIndex((el) => el.id === item.id);
       Object.assign(videos[index], item);
     });
-    dispatch(setVideosAction(videos));
-    dispatch(setStopLoadingAction());
+    dispatch(addVideosAction(videos));
     dispatch(setNextPageTokenAction(json.nextPageToken));
+    dispatch(setStopLoadingAction());
   };
 };
