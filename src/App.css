@@ -78,4 +78,5 @@ select {
 }
 body {
   overflow: hidden;
+  max-width: 100vw;
 }
