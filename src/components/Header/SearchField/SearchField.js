@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import searchIcon from "../../../assets/imgs/search-icon.png";
 import s from "./SearchField.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchVideos } from "../../../assets/AsyncActions/fetchVideos";
+import { fetchVideos } from "../../../redux-thunk/fetchVideos";
 import {
   setCurrentIdAction,
   setLoadingAction,

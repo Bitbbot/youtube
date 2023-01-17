@@ -2,7 +2,7 @@ import {
   setNextPageTokenAction,
   setStopLoadingAction,
   setVideosAction,
-} from "../../store/videosReducer";
+} from "../store/videosReducer";
 
 const fetchVideosInfo = async (ids) => {
   const response = await fetch(
