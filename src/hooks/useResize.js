@@ -11,8 +11,10 @@ const UseResize = (videosRef) => {
   const currentIdRef = useRef(currentId);
   useEffect(() => {
     videosPerPageRef.current = videosPerPage;
+  }, [videosPerPage]);
+  useEffect(() => {
     currentIdRef.current = currentId;
-  }, [videosPerPage, currentId]);
+  }, [currentId]);
   useEffect(() => {
     function handleResize() {
       const width = window.visualViewport.width;

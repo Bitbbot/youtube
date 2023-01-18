@@ -20,25 +20,25 @@ const Videos = () => {
   const videosRef = useRef(null);
   useWheel(videosRef);
   useResize(videosRef);
-  const swipeHandlers = useSwipe({
-    onSwipedLeft: () => {
-      if (currentId + videosPerPage < videos.length) {
-        dispatch(setCurrentIdAction(currentId + videosPerPage));
-      }
-    },
-    onSwipedRight: () => {
-      if (currentId - videosPerPage >= 0) {
-        dispatch(setCurrentIdAction(currentId - videosPerPage));
-      }
-    },
-    onBlank: () => {
-      console.log("blank");
-      videosRef.current.style = `transform: translateX(${
-        (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
-      }`;
-    },
-    videosRef,
-  });
+  const swipeHandlers = useSwipe(
+    // onSwipedLeft: () => {
+    //   if (currentId + videosPerPage < videos.length) {
+    //     dispatch(setCurrentIdAction(currentId + videosPerPage));
+    //   }
+    // },
+    // onSwipedRight: () => {
+    //   if (currentId - videosPerPage >= 0) {
+    //     dispatch(setCurrentIdAction(currentId - videosPerPage));
+    //   }
+    // },
+    // onBlank: () => {
+    //   console.log("blank");
+    //   videosRef.current.style = `transform: translateX(${
+    //     (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
+    //   }`;
+
+    videosRef
+  );
   useEffect(() => {
     if (
       currentId + 10 > videos.length &&
