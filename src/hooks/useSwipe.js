@@ -38,9 +38,19 @@ export default function useSwipe(videosRef) {
 
   const onTouchMove = (e) => {
     console.log(videosRef.current.offsetWidth);
-    videosRef.current.style = `transform: translateX(${
-      -touchStart.current + touchEnd.current + "px"
-    }`;
+    if (-touchStart.current + touchEnd.current > 0) {
+      videosRef.current.style = `transform: translateX(${
+        (-currentId / videosPerPage) * videosRef.current.offsetWidth -
+        touchStart.current +
+        touchEnd.current
+      }px`;
+    } else
+      videosRef.current.style = `transform: translateX(${
+        (-currentId / videosPerPage) * videosRef.current.offsetWidth -
+        touchStart.current +
+        touchEnd.current
+      }px`;
+
     touchEnd.current = e.targetTouches[0].clientX;
     console.log("move", touchEnd.current);
   };
