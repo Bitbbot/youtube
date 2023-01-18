@@ -1,9 +1,17 @@
+.wrapper_wrapper {
+  height: 50vh;
+}
 .wrapper {
   display: flex;
   flex-direction: row;
   height: 50vh;
   z-index: -1;
   transition: 1s;
+  position: relative;
+  top: -50vh;
+}
+.wrapper_layer {
+  height: 50vh;
 }
 /*::-webkit-scrollbar {*/
 /*  width: 0;*/

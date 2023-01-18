@@ -48,7 +48,8 @@ const Videos = () => {
   }, [currentId, videosPerPage]);
 
   return (
-    <div {...swipeHandlers}>
+    <div {...swipeHandlers} className={s.wrapper_wrapper}>
+      <div className={s.wrapper_layer}></div>
       <div className={s.wrapper} ref={videosRef}>
         {isLoading ? (
           <img src={indicator} alt="NaN" className={s.indicator} />
