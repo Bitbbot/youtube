@@ -7,7 +7,7 @@ import indicator from "../../assets/imgs/indicator.gif";
 import useWheel from "../../hooks/useWheel";
 import useResize from "../../hooks/useResize";
 import { fetchVideos } from "../../redux-thunk/fetchVideos";
-import { setCurrentIdAction } from "../../store/videosReducer";
+// import { setCurrentIdAction } from "../../store/videosReducer";
 
 const Videos = () => {
   const dispatch = useDispatch();
