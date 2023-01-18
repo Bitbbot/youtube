@@ -20,7 +20,12 @@ const Switches = () => {
   return (
     <div className={s.wrapper}>
       {switches.map((item, index) => (
-        <Switch isOn={item.isOn} switchesOn={item.switchesOn} key={index} />
+        <Switch
+          isOn={item.isOn}
+          switchesOn={item.switchesOn}
+          currentPage={Math.ceil((item.switchesOn + 1) / videosPerPage)}
+          key={index}
+        />
       ))}
     </div>
   );

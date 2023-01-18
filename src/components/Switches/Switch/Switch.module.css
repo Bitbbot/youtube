@@ -1,12 +1,13 @@
 .switch {
-  background-color: #c4c4c4;
-  padding: 8px;
-  border-radius: 8px;
+  background-color: #ababab;
+  border-radius: 10px;
   border: none;
   margin: 5px;
+  color: white;
+  font-size: 12px;
 }
 .on {
-  background-color: #606060;
+  background-color: #525252;
 }
 .switch:hover {
   cursor: pointer;
