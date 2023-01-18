@@ -7,13 +7,18 @@ export default function useSwipe(input) {
   const minSwipeDistance = 50;
 
   const onTouchStart = (e) => {
+    console.log("start");
     setTouchEnd(0); // otherwise the swipe is fired even with usual touch events
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+    console.log("move");
+  };
 
   const onTouchEnd = () => {
+    console.log("end");
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;

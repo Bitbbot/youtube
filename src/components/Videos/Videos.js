@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 import Video from "./Video/Video";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./Videos.module.css";
-// import useSwipe from "../../hooks/useSwipe";
+import useSwipe from "../../hooks/useSwipe";
 import indicator from "../../assets/imgs/indicator.gif";
 import useWheel from "../../hooks/useWheel";
 import useResize from "../../hooks/useResize";
 import { fetchVideos } from "../../redux-thunk/fetchVideos";
-// import { setCurrentIdAction } from "../../store/videosReducer";
+import { setCurrentIdAction } from "../../store/videosReducer";
 
 const Videos = () => {
   const dispatch = useDispatch();
@@ -20,18 +20,18 @@ const Videos = () => {
   const videosRef = useRef(null);
   useWheel(videosRef);
   useResize(videosRef);
-  // const swipeHandlers = useSwipe({
-  //   onSwipedLeft: () => {
-  //     if (currentId + videosPerPage < videosAll.length) {
-  //       dispatch(setCurrentIdAction(currentId + videosPerPage));
-  //     }
-  //   },
-  //   onSwipedRight: () => {
-  //     if (currentId - videosPerPage >= 0) {
-  //       dispatch(setCurrentIdAction(currentId - videosPerPage));
-  //     }
-  //   },
-  // });
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () => {
+      if (currentId + videosPerPage < videos.length) {
+        dispatch(setCurrentIdAction(currentId + videosPerPage));
+      }
+    },
+    onSwipedRight: () => {
+      if (currentId - videosPerPage >= 0) {
+        dispatch(setCurrentIdAction(currentId - videosPerPage));
+      }
+    },
+  });
   useEffect(() => {
     if (
       currentId + 10 > videos.length &&
@@ -48,14 +48,16 @@ const Videos = () => {
   }, [currentId, videosPerPage]);
 
   return (
-    <div className={s.wrapper} ref={videosRef}>
-      {isLoading ? (
-        <img src={indicator} alt="NaN" className={s.indicator} />
-      ) : (
-        videos.map((video) => (
-          <Video video={video} key={`${video.id}${Math.random()}`} />
-        ))
-      )}
+    <div {...swipeHandlers}>
+      <div className={s.wrapper} ref={videosRef}>
+        {isLoading ? (
+          <img src={indicator} alt="NaN" className={s.indicator} />
+        ) : (
+          videos.map((video) => (
+            <Video video={video} key={`${video.id}${Math.random()}`} />
+          ))
+        )}
+      </div>
     </div>
   );
 };

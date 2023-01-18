@@ -15,10 +15,8 @@ const UseResize = (videosRef) => {
   }, [videosPerPage, currentId]);
   useEffect(() => {
     function handleResize() {
-      console.log("hh");
       const width = window.visualViewport.width;
       if (width < 576) {
-        console.log(videosRef.current.style.transition);
         dispatch(setVideosPerPageAction(1));
       } else if (width < 992) {
         dispatch(setVideosPerPageAction(2));
