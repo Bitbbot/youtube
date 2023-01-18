@@ -31,6 +31,13 @@ const Videos = () => {
         dispatch(setCurrentIdAction(currentId - videosPerPage));
       }
     },
+    onBlank: () => {
+      console.log("blank");
+      videosRef.current.style = `transform: translateX(${
+        (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
+      }`;
+    },
+    videosRef,
   });
   useEffect(() => {
     if (

@@ -4,16 +4,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div
-      className="App"
-      onTouchMove={() => {
-        console.log("move app");
-      }}
-      onTouchStart={() => {
-        console.log("start app");
-      }}
-      onTouchEnd={() => console.log("end")}
-    >
+    <div className="App">
       <Header />
       <HomePage />
     </div>
