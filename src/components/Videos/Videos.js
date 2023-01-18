@@ -7,7 +7,6 @@ import indicator from "../../assets/imgs/indicator.gif";
 import useWheel from "../../hooks/useWheel";
 import useResize from "../../hooks/useResize";
 import { fetchVideos } from "../../redux-thunk/fetchVideos";
-// import { setCurrentIdAction } from "../../store/videosReducer";
 
 const Videos = () => {
   const dispatch = useDispatch();
@@ -18,27 +17,9 @@ const Videos = () => {
   const nextPageToken = useSelector((state) => state.nextPageToken);
   const isLoading = useSelector((state) => state.isLoading);
   const videosRef = useRef(null);
+  const swipeHandlers = useSwipe(videosRef);
   useWheel(videosRef);
   useResize(videosRef);
-  const swipeHandlers = useSwipe(
-    // onSwipedLeft: () => {
-    //   if (currentId + videosPerPage < videos.length) {
-    //     dispatch(setCurrentIdAction(currentId + videosPerPage));
-    //   }
-    // },
-    // onSwipedRight: () => {
-    //   if (currentId - videosPerPage >= 0) {
-    //     dispatch(setCurrentIdAction(currentId - videosPerPage));
-    //   }
-    // },
-    // onBlank: () => {
-    //   console.log("blank");
-    //   videosRef.current.style = `transform: translateX(${
-    //     (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
-    //   }`;
-
-    videosRef
-  );
   useEffect(() => {
     if (
       currentId + 10 > videos.length &&

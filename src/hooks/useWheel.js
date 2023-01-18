@@ -7,10 +7,11 @@ const UseWheel = (videosRef) => {
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const videos = useSelector((state) => state.videos);
-  // const shift = useRef(null);
   const videosLengthRef = useRef(videos.length);
   const currentIdRef = useRef(currentId);
   const videosPerPageRef = useRef(videosPerPage);
+  const shift = useRef(null);
+  const isWheelAvailable = useRef(true);
   useEffect(() => {
     videosLengthRef.current = videos.length;
   }, [videos]);
@@ -21,25 +22,38 @@ const UseWheel = (videosRef) => {
     videosPerPageRef.current = videosPerPage;
   }, [videosPerPage]);
   useEffect(() => {
-    // console.log("useWheel");
     function onWheel(e) {
       const delta = e.deltaY || e.detail || e.wheelDelta;
-      // console.log(delta);
-      if (
-        delta < 0 &&
-        currentIdRef.current + videosPerPageRef.current <
-          videosLengthRef.current
-      ) {
-        dispatch(
-          setCurrentIdAction(currentIdRef.current + videosPerPageRef.current)
-        );
-      } else if (
-        delta > 0 &&
-        currentIdRef.current - videosPerPageRef.current >= 0
-      )
+      if (!isWheelAvailable.current) {
+        return;
+      }
+      shift.current += delta;
+      if (delta > 0 && currentIdRef.current === 0) {
+        setCurrentIdAction(currentIdRef.current);
+        shift.current = 0;
+        return;
+      }
+      if (shift.current >= 200) {
         dispatch(
           setCurrentIdAction(currentIdRef.current - videosPerPageRef.current)
         );
+        shift.current = 0;
+        isWheelAvailable.current = false;
+        setTimeout(() => (isWheelAvailable.current = true), 2000);
+      } else if (shift.current <= -200) {
+        dispatch(
+          setCurrentIdAction(currentIdRef.current + videosPerPageRef.current)
+        );
+        shift.current = 0;
+        isWheelAvailable.current = false;
+        setTimeout(() => (isWheelAvailable.current = true), 2000);
+      } else {
+        videosRef.current.style = `transform: translateX(${
+          (-currentIdRef.current / videosPerPageRef.current) *
+            videosRef.current.offsetWidth +
+          shift.current
+        }px`;
+      }
     }
     if ("onwheel" in document) {
       window.addEventListener("wheel", onWheel);
@@ -57,7 +71,7 @@ const UseWheel = (videosRef) => {
         window.removeEventListener("MozMousePixelScroll", onWheel);
       }
     };
-  }, [dispatch]);
+  }, [dispatch, videosRef]);
 };
 
 export default UseWheel;
