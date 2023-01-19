@@ -7,6 +7,7 @@ import indicator from "../../assets/imgs/indicator.gif";
 import useWheel from "../../hooks/useWheel";
 import useResize from "../../hooks/useResize";
 import { fetchVideos } from "../../redux-thunk/fetchVideos";
+import useMouseSwipe from "../../hooks/useMouseSwipe";
 
 const Videos = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Videos = () => {
   const isLoading = useSelector((state) => state.isLoading);
   const videosRef = useRef(null);
   const swipeHandlers = useSwipe(videosRef);
+  const mouseSwipeHandlers = useMouseSwipe(videosRef);
   useWheel(videosRef);
   useResize(videosRef);
   useEffect(() => {
@@ -36,7 +38,11 @@ const Videos = () => {
   }, [currentId, videosPerPage]);
 
   return (
-    <div {...swipeHandlers} className={s.wrapper_wrapper}>
+    <div
+      {...swipeHandlers}
+      {...mouseSwipeHandlers}
+      className={s.wrapper_wrapper}
+    >
       <div className={s.wrapper_layer}></div>
       <div className={s.wrapper} ref={videosRef}>
         {isLoading ? (
