@@ -1,6 +1,6 @@
 import React from "react";
+import SearchField from "@components/Header/SearchField/SearchField";
 import s from "./Header.module.css";
-import SearchField from "./SearchField/SearchField";
 
 const Header = () => {
   return (

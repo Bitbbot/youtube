@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
-import Video from "./Video/Video";
 import { useDispatch, useSelector } from "react-redux";
+import Video from "@components/Videos/Video/Video";
+import useSwipe from "@hooks/useSwipe";
+import indicator from "@assets/imgs/indicator.gif";
+import useWheel from "@hooks/useWheel";
+import useResize from "@hooks/useResize";
+import { fetchVideos } from "@redux-thunk/fetchVideos";
+import useMouseSwipe from "@hooks/useMouseSwipe";
 import s from "./Videos.module.css";
-import useSwipe from "../../hooks/useSwipe";
-import indicator from "../../assets/imgs/indicator.gif";
-import useWheel from "../../hooks/useWheel";
-import useResize from "../../hooks/useResize";
-import { fetchVideos } from "../../redux-thunk/fetchVideos";
-import useMouseSwipe from "../../hooks/useMouseSwipe";
 
 const Videos = () => {
   const dispatch = useDispatch();
@@ -18,10 +18,12 @@ const Videos = () => {
   const nextPageToken = useSelector((state) => state.nextPageToken);
   const isLoading = useSelector((state) => state.isLoading);
   const videosRef = useRef(null);
+
   const swipeHandlers = useSwipe(videosRef);
   const mouseSwipeHandlers = useMouseSwipe(videosRef);
   useWheel(videosRef);
   useResize(videosRef);
+
   useEffect(() => {
     if (
       currentId + 10 > videos.length &&
@@ -31,6 +33,7 @@ const Videos = () => {
       dispatch(fetchVideos(input, nextPageToken));
     }
   }, [currentId, input, dispatch, nextPageToken, videos, isLoading]);
+
   useEffect(() => {
     videosRef.current.style = `transform: translateX(${
       (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"

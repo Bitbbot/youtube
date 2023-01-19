@@ -1,58 +1,59 @@
-import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentIdAction } from "../store/videosReducer";
+import { setCurrentIdAction } from "@store/videosReducer";
 
 export default function useSwipe(videosRef) {
   const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const videos = useSelector((state) => state.videos);
-  const touchStart = useRef(0);
-  const touchEnd = useRef(0);
+  let touchStart = 0;
+  let touchEnd = 0;
   const minSwipeDistance = 100;
-  const input = {
-    onSwipedLeft: () => {
-      if (currentId + videosPerPage < videos.length) {
-        dispatch(setCurrentIdAction(currentId + videosPerPage));
-      }
-    },
-    onSwipedRight: () => {
-      if (currentId - videosPerPage >= 0) {
-        dispatch(setCurrentIdAction(currentId - videosPerPage));
-      }
-    },
-    onBlank: () => {
-      videosRef.current.style = `transform: translateX(${
-        (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
-      }`;
-    },
-  };
+
+  function onSwipedLeft() {
+    if (currentId + videosPerPage < videos.length) {
+      dispatch(setCurrentIdAction(currentId + videosPerPage));
+    }
+  }
+
+  function onSwipedRight() {
+    if (currentId - videosPerPage >= 0) {
+      dispatch(setCurrentIdAction(currentId - videosPerPage));
+    }
+  }
+
+  function onBlank() {
+    videosRef.current.style = `transform: translateX(${
+      (-currentId / videosPerPage) * videosRef.current.offsetWidth + "px"
+    }`;
+  }
+
   const onTouchStart = (e) => {
-    touchEnd.current = 0;
-    touchStart.current = e.targetTouches[0].clientX;
+    touchEnd = 0;
+    touchStart = e.targetTouches[0].clientX;
   };
 
   const onTouchMove = (e) => {
     if (currentId !== 0)
       videosRef.current.style = `transform: translateX(${
         (-currentId / videosPerPage) * videosRef.current.offsetWidth -
-        touchStart.current +
-        touchEnd.current
+        touchStart +
+        touchEnd
       }px`;
-    touchEnd.current = e.targetTouches[0].clientX;
+    touchEnd = e.targetTouches[0].clientX;
   };
 
   const onTouchEnd = () => {
-    if (!touchStart.current || !touchEnd.current) return;
-    const distance = touchStart.current - touchEnd.current;
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
     if (isLeftSwipe) {
-      input.onSwipedLeft();
+      onSwipedLeft();
     } else if (isRightSwipe) {
-      input.onSwipedRight();
+      onSwipedRight();
     } else {
-      input.onBlank();
+      onBlank();
     }
   };
 

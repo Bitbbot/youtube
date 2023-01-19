@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentIdAction } from "../store/videosReducer";
+import { setCurrentIdAction } from "@store/videosReducer";
 
 const UseWheel = (videosRef) => {
   const dispatch = useDispatch();
@@ -12,15 +12,19 @@ const UseWheel = (videosRef) => {
   const videosPerPageRef = useRef(videosPerPage);
   const shift = useRef(null);
   const isWheelAvailable = useRef(true);
+
   useEffect(() => {
     videosLengthRef.current = videos.length;
   }, [videos]);
+
   useEffect(() => {
     currentIdRef.current = currentId;
   }, [currentId]);
+
   useEffect(() => {
     videosPerPageRef.current = videosPerPage;
   }, [videosPerPage]);
+
   useEffect(() => {
     function onWheel(e) {
       const delta = e.deltaY || e.detail || e.wheelDelta;

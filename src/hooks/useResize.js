@@ -1,7 +1,6 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setVideosPerPageAction } from "../store/videosReducer";
-import { useEffect } from "react";
+import { setVideosPerPageAction } from "@store/videosReducer";
 
 const UseResize = (videosRef) => {
   const dispatch = useDispatch();
@@ -9,12 +8,15 @@ const UseResize = (videosRef) => {
   const videosPerPageRef = useRef(videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const currentIdRef = useRef(currentId);
+
   useEffect(() => {
     videosPerPageRef.current = videosPerPage;
   }, [videosPerPage]);
+
   useEffect(() => {
     currentIdRef.current = currentId;
   }, [currentId]);
+
   useEffect(() => {
     function handleResize() {
       const width = window.visualViewport.width;
@@ -26,6 +28,7 @@ const UseResize = (videosRef) => {
         dispatch(setVideosPerPageAction(3));
       }
     }
+
     function moveComponent() {
       videosRef.current.style.transform = `translateX(${
         (-currentIdRef.current / videosPerPageRef.current) *
@@ -33,11 +36,13 @@ const UseResize = (videosRef) => {
         "px"
       }`;
     }
+
     handleResize();
     window.addEventListener("resize", () => {
       handleResize();
       moveComponent();
     });
+
     return () => {
       window.removeEventListener("resize", () => {
         handleResize();

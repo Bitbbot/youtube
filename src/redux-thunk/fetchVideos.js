@@ -3,7 +3,7 @@ import {
   setStopLoadingAction,
   addVideosAction,
   setLoadingAction,
-} from "../store/videosReducer";
+} from "@store/videosReducer";
 
 const fetchVideosInfo = async (ids) => {
   const response = await fetch(
