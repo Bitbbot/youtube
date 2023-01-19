@@ -22,19 +22,21 @@ const SearchField = () => {
   };
 
   return (
-    <div className={s.wrapper}>
+    <form className={s.wrapper}>
+      {/*<label htmlFor="input">input</label>*/}
       <input
         type="text"
         className={s.input}
+        id="input"
         onChange={(e) => setInput(e.target.value)}
         onKeyPress={(e) => {
           if (e?.key === "Enter") search();
         }}
       />
-      <button className={s.search_button} onClick={search}>
+      <button className={s.search_button} onClick={search} type="button">
         <img src={searchIcon} alt={"NaN"} className={s.search_icon} />
       </button>
-    </div>
+    </form>
   );
 };
 
