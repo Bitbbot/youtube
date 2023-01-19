@@ -23,7 +23,9 @@ const SearchField = () => {
 
   return (
     <form className={s.wrapper}>
-      {/*<label htmlFor="input">input</label>*/}
+      <label htmlFor="input" style={{ display: "none" }}>
+        input
+      </label>
       <input
         type="text"
         className={s.input}
