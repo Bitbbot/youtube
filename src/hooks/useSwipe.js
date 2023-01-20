@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIdAction } from "@store/videosReducer";
+import { useRef } from "react";
 
 export default function useSwipe(videosRef) {
   const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
   const videos = useSelector((state) => state.videos);
-  let touchStart = 0;
-  let touchEnd = 0;
+
+  const touchStart = useRef(0);
+  const touchEnd = useRef(0);
   const minSwipeDistance = 100;
 
   function onSwipedLeft() {
@@ -29,8 +31,8 @@ export default function useSwipe(videosRef) {
   }
 
   const onTouchStart = (e) => {
-    touchEnd = 0;
-    touchStart = e.targetTouches[0].clientX;
+    touchEnd.current = 0;
+    touchStart.current = e.targetTouches[0].clientX;
   };
 
   const onTouchMove = (e) => {
@@ -40,7 +42,7 @@ export default function useSwipe(videosRef) {
         touchStart +
         touchEnd
       }px`;
-    touchEnd = e.targetTouches[0].clientX;
+    touchEnd.current = e.targetTouches[0].clientX;
   };
 
   const onTouchEnd = () => {

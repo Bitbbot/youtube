@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import searchIcon from "@assets/imgs/search-icon.png";
-import { fetchVideos } from "@redux-thunk/fetchVideos";
-import {
-  resetVideosAction,
-  setCurrentIdAction,
-  setInputAction,
-} from "@store/videosReducer";
+import { searchThunk } from "@redux-thunk/searchThunk";
 import s from "./SearchField.module.css";
 
 const SearchField = () => {
@@ -15,10 +10,7 @@ const SearchField = () => {
   const [input, setInput] = useState("");
 
   const search = () => {
-    dispatch(resetVideosAction());
-    dispatch(setInputAction(input));
-    dispatch(fetchVideos(input, nextPageToken));
-    dispatch(setCurrentIdAction(0));
+    dispatch(searchThunk({ input, nextPageToken }));
   };
 
   return (
@@ -32,7 +24,10 @@ const SearchField = () => {
         id="input"
         onChange={(e) => setInput(e.target.value)}
         onKeyPress={(e) => {
-          if (e?.key === "Enter") search();
+          if (e?.key === "Enter") {
+            search();
+            e.preventDefault();
+          }
         }}
       />
       <button className={s.search_button} onClick={search} type="button">

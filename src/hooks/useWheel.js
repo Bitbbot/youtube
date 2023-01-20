@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIdAction } from "@store/videosReducer";
 
-const UseWheel = (videosRef) => {
+export default function useWheel(videosRef) {
   const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
@@ -76,6 +76,4 @@ const UseWheel = (videosRef) => {
       }
     };
   }, [dispatch, videosRef]);
-};
-
-export default UseWheel;
+}

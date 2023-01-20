@@ -1,43 +1,47 @@
 import { useDispatch, useSelector } from "react-redux";
+import throttle from "lodash.throttle";
 import { setCurrentIdAction } from "@store/videosReducer";
+import { useRef } from "react";
 
-const UseMouseSwipe = (videosRef) => {
+export default function useMouseSwipe(videosRef) {
   const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const currentId = useSelector((state) => state.currentId);
 
-  let isDragging = false;
-  let start = 0;
-  let isMouseMove = true;
+  const isDragging = useRef(false);
+  const start = useRef(0);
+  const isMouseMove = useRef(true);
 
   const onMouseDown = (e) => {
-    isDragging = true;
-    start = e.clientX;
+    isDragging.current = true;
+    start.current = e.clientX;
   };
 
-  const onMouseMove = (e) => {
+  const onMouseMoveHandler = (e) => {
     if (
-      !isDragging ||
-      isMouseMove === false ||
-      (currentId === 0 && -start + e.clientX > 0)
+      !isDragging.current ||
+      isMouseMove.current === false ||
+      (currentId === 0 && -start.current + e.clientX > 0)
     )
       return;
     videosRef.current.style = `transform: translateX(${
       (-currentId / videosPerPage) * videosRef.current.offsetWidth +
-      (-start + e.clientX)
+      (-start.current + e.clientX)
     }px`;
-    isMouseMove = false;
+    isMouseMove.current = false;
     setTimeout(() => {
-      isMouseMove = true;
+      isMouseMove.current = true;
     }, 100);
   };
 
+  const onMouseMove = throttle(onMouseMoveHandler, 100);
+
   const onMouseUp = (e) => {
-    if (currentId === 0 && -start + e.clientX > 0) return;
-    isDragging = false;
-    if (-start + e.clientX > 100) {
+    if (currentId === 0 && -start.current + e.clientX > 0) return;
+    isDragging.current = false;
+    if (-start.current + e.clientX > 100) {
       dispatch(setCurrentIdAction(currentId - videosPerPage));
-    } else if (-start + e.clientX < -100) {
+    } else if (-start.current + e.clientX < -100) {
       dispatch(setCurrentIdAction(currentId + videosPerPage));
     } else {
       videosRef.current.style = `transform: translateX(${
@@ -51,6 +55,4 @@ const UseMouseSwipe = (videosRef) => {
     onMouseUp,
     onMouseMove,
   };
-};
-
-export default UseMouseSwipe;
+}

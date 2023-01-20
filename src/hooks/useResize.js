@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setVideosPerPageAction } from "@store/videosReducer";
 
-const UseResize = (videosRef) => {
+export default function useResize(videosRef) {
   const dispatch = useDispatch();
   const videosPerPage = useSelector((state) => state.videosPerPage);
   const videosPerPageRef = useRef(videosPerPage);
@@ -50,6 +50,4 @@ const UseResize = (videosRef) => {
       });
     };
   }, [dispatch, videosRef]);
-};
-
-export default UseResize;
+}

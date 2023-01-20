@@ -7,7 +7,7 @@ module.exports = {
     alias: {
       "@components": resolvePath("./src/components"),
       "@assets": resolvePath("./src/assets"),
-      "@functions": resolvePath("./src/functions"),
+      "@utils": resolvePath("./src/utils"),
       "@hooks": resolvePath("./src/hooks"),
       "@pages": resolvePath("./src/pages"),
       "@redux-thunk": resolvePath("./src/redux-thunk"),

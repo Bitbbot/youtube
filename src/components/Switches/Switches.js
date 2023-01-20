@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Switch from "@components/Switches/Switch/Switch";
-import { getSwitches } from "@functions/getSwitches";
+import { getSwitches } from "@utils/getSwitches";
 import s from "./Switches.module.css";
 
 const Switches = () => {

@@ -41,11 +41,11 @@ export const fetchVideos = (text, nextPageToken) => {
     const additionalData = await fetchVideosInfo(
       videos.map((video) => video.id)
     );
-    additionalData.forEach((item) => {
+    const newVideos = additionalData.map((item) => {
       const index = videos.findIndex((el) => el.id === item.id);
-      Object.assign(videos[index], item);
+      return { ...videos[index], ...item };
     });
-    dispatch(addVideosAction(videos));
+    dispatch(addVideosAction(newVideos));
     dispatch(setNextPageTokenAction(json.nextPageToken));
     dispatch(setStopLoadingAction());
   };
